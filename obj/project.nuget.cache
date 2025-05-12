@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "2LY5i6NX7SE=",
+  "success": true,
+  "projectFilePath": "/home/pete-fed/sandbox/Sandbox.csproj",
+  "expectedPackageFiles": [
+    "/home/pete-fed/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

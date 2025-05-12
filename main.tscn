@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://caxkbuo4jpwqi"]
+
+[ext_resource type="Script" uid="uid://chbql0x6sv8bn" path="res://Scripts/PointCloud.cs" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://u84yl8cdxsj4" path="res://Scripts/Camera3d.cs" id="2_0xm2m"]
+[ext_resource type="ArrayMesh" uid="uid://bnfh2l3v3hv5r" path="res://monkey.obj" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://dm56ol2sevtig" path="res://Scripts/WireframeCube.cs" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://db48vwa3slvih" path="res://UI/Wireframe.cs" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://y4r2wp7bk104" path="res://UI/ShowPointCloud.cs" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://byimxtfpbebww" path="res://UI/ShowMesh.cs" id="7_272bh"]
+[ext_resource type="Script" uid="uid://ddl2dnl4bf41a" path="res://UI/SeedButton.cs" id="8_5vw27"]
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.05
+
+[node name="main" type="Node3D"]
+
+[node name="PointCloud" type="Node3D" parent="."]
+script = ExtResource("1_ig7tw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.77776)
+fov = 60.0
+script = ExtResource("2_0xm2m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.746638, 0.66523, 0, -0.66523, 0.746638, 0, 4.12835, 2.03787)
+light_energy = 0.7
+
+[node name="Monkey" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+visible = false
+mesh = ExtResource("3_h2yge")
+
+[node name="WireframeCube" type="Node3D" parent="."]
+script = ExtResource("4_1bvp3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1bvp3")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_top = 0.029321
+anchor_right = 0.265625
+anchor_bottom = 0.611111
+offset_bottom = -3.05176e-05
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Wireframe" type="CheckButton" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Wireframe"
+script = ExtResource("5_lquwl")
+
+[node name="ShowMesh" type="CheckButton" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Show Mesh"
+script = ExtResource("7_272bh")
+pointCloudNodePath = NodePath("../../../../PointCloud")
+
+[node name="ShowPointCloud" type="CheckButton" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Show Spheres"
+script = ExtResource("6_7mycd")
+pointCloudNodePath = NodePath("../../../../PointCloud")
+
+[node name="SeedButton" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "New Seed"
+script = ExtResource("8_5vw27")
+pointCloudNodePath = NodePath("../../../../PointCloud")
